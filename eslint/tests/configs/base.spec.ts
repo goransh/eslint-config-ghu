@@ -17,8 +17,8 @@ describe("test", () => {
   });
 
   test("lintText should work", async () => {
-    // Language=ts
     const result = await eslint.lintText(
+      // language=ts
       `
       const a = 1;
       console.log(a);

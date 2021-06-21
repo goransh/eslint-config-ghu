@@ -124,11 +124,13 @@ module.exports = {
      * Most of eslint's rules in this category are handled by prettier
      */
 
-    /*
-     * TODO remove in favor of ts naming conventions?
-     *        "camelcase": ["warn", { "allow": ["^UNSAFE_"] }],
-     */
-    "capitalized-comments": "warn",
+    "capitalized-comments": [
+      "warn",
+      "always",
+      {
+        ignorePattern: "language=",
+      },
+    ],
     // Prefer "function foo(){..." over "const foo = function{..."
     "func-style": ["warn", "declaration", { allowArrowFunctions: true }],
     "lines-between-class-members": ["warn", "always", { exceptAfterSingleLine: true }],
@@ -370,20 +372,12 @@ module.exports = {
     // Disallow number literals that lose precision
     "no-loss-of-precision": "warn",
     "@typescript-eslint/no-loss-of-precision": ["warn"],
-    // Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
+    /*
+     * Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
+     * TODO Too difficult to make it not be annoying, there are too many edge cases we'd like to ignore
+     */
     "no-magic-numbers": "off",
-    "@typescript-eslint/no-magic-numbers": [
-      "warn",
-      {
-        ignore: [-1, 0, 1, 2, 24, 60, 1000], // Common indexes and values when working with time
-        ignoreDefaultValues: true,
-        enforceConst: true,
-        // Additional rules by typescript-eslint
-        ignoreEnums: true,
-        ignoreNumericLiteralTypes: true,
-        ignoreReadonlyClassProperties: true,
-      },
-    ],
+    "@typescript-eslint/no-magic-numbers": "off",
 
     "@typescript-eslint/no-misused-new": "warn",
     "@typescript-eslint/no-misused-promises": "warn",
