@@ -7,8 +7,10 @@ describe("test", () => {
         project: "./tsconfig.json",
         createDefaultProgram: true,
       },
+      root: true,
     },
-    overrideConfigFile: "./src/configs/base.js",
+    overrideConfigFile: "./src/configs/all.js",
+    useEslintrc: false,
   });
 
   test("lintFiles should work", async () => {
