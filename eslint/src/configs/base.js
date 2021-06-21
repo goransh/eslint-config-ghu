@@ -193,6 +193,6 @@ module.exports = {
     // Suggest using spread syntax instead of .apply()
     "prefer-spread": "warn",
     // Suggest using template literals instead of string concatenation
-    "prefer-template": "warn",
+    "prefer-template": "warn"
   },
 };
