@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "build",
+    "sourceMap": false,
+    "listFiles": false,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "downlevelIteration": true,
+  },
+  "include": ["src", "tests"],
+  "exclude": ["node_modules"]
+}
