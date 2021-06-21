@@ -5,7 +5,7 @@
     "moduleResolution": "Node",
     "declaration": true,
     "rootDir": "src",
-    "outDir": "build",
+    "outDir": "dist",
     "sourceMap": false,
     "listFiles": false,
     "esModuleInterop": true,

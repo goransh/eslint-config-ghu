@@ -1,13 +1,14 @@
 {
   "name": "eslint-config-ghu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Eslint config ghu",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
-    "index.js",
-    "src/**"
+    "dist/**"
   ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublish": "npm run build",
     "test": "jest"
   },
   "repository": {
@@ -27,19 +28,26 @@
     "url": "https://github.com/goransh/clean-code/issues"
   },
   "homepage": "https://github.com/goransh/clean-code#readme",
-  "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.1"
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": ">= 4.*",
+    "@typescript-eslint/parser": ">= 4.*",
+    "eslint": ">=7.*",
+    "eslint-config-prettier": ">= 8.*",
+    "eslint-plugin-eslint-comments": ">= 3.*",
+    "eslint-plugin-import": ">= 2",
+    "eslint-plugin-prettier": ">= 3.*",
+    "prettier": ">= 2.*"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.13",
     "@types/jest": "^26.0.23",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.1",
     "jest": "^27.0.4",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
