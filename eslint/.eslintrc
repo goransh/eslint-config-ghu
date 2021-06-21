@@ -3,7 +3,7 @@
     "project": "./tsconfig.json"
   },
   "extends": [
-    "./src/configs/base"
+    "./src/configs/all"
   ],
   "env": {
     "browser": true,
