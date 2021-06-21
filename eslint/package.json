@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "Eslint config ghu",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "src/**"
+  ],
   "scripts": {
     "test": "jest"
   },
