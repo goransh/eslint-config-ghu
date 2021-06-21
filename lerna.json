@@ -1,0 +1,6 @@
+{
+  "packages": [
+    "eslint/*"
+  ],
+  "version": "independent"
+}

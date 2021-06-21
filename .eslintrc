@@ -1,9 +1,9 @@
 {
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./eslint/tsconfig.json"
   },
   "extends": [
-    "./src/configs/all"
+    "./eslint/src/configs/all"
   ],
   "env": {
     "browser": true,
