@@ -29,7 +29,5 @@ describe("test", () => {
     );
 
     result.forEach(console.log);
-
-    expect(true).toEqual(true);
   });
 });

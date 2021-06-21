@@ -4,8 +4,7 @@
   "description": "Eslint config ghu",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "prepare": "cd .. && husky install"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
