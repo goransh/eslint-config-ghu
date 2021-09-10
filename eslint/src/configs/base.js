@@ -246,7 +246,6 @@ module.exports = {
     "@typescript-eslint/init-declarations": ["warn", "always"],
     "@typescript-eslint/method-signature-style": ["warn"],
     "@typescript-eslint/naming-convention": [
-      // TODO consider allowing PascalCase properties? useful in some cases
       "warn",
       // Use camel and pascal case by default
       {
@@ -271,6 +270,10 @@ module.exports = {
       {
         selector: "typeLike",
         format: ["PascalCase"],
+      },
+      {
+        selector: "memberLike",
+        format: ["camelCase", "PascalCase"],
       },
       // Private members are prefixed with underscore
       {

@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-ghu",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Eslint config ghu",
   "main": "dist/index.js",
   "files": [
