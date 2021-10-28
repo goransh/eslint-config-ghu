@@ -221,7 +221,21 @@ module.exports = {
       },
     ],
     // Bans specific types from being used (String => string, Function etc.)
-    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/ban-types": [
+      "warn",
+      {
+        types: {
+          // This was removed from the old default config
+          object: {
+            message: [
+              "The `object` type is currently hard to use ([see this issue](https://github.com/microsoft/TypeScript/issues/21732)).",
+              "Consider using `Record<string, unknown>` instead, as it allows you to more easily inspect and use the keys.",
+            ].join("\n"),
+          },
+        },
+        extendDefaults: true,
+      },
+    ],
     // Prefer using Record<string, T> instead of defining custom types like { [key: string]: T }
     "@typescript-eslint/consistent-indexed-object-style": ["warn", "record"],
     "@typescript-eslint/consistent-type-assertions": "off",
@@ -236,9 +250,6 @@ module.exports = {
       "warn",
       {
         accessibility: "no-public",
-        overrides: {
-          properties: "explicit",
-        },
       },
     ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -250,21 +261,6 @@ module.exports = {
       // Use camel and pascal case by default
       {
         selector: "default",
-        format: ["camelCase"],
-      },
-      {
-        selector: "variable",
-        format: ["camelCase", "PascalCase"],
-      },
-      // Boolean variables are prefixed with a verb
-      {
-        selector: "variable",
-        types: ["boolean"],
-        format: ["PascalCase"],
-        prefix: ["is", "should", "has", "can", "did", "will", "show", "hide"],
-      },
-      {
-        selector: "function",
         format: ["camelCase", "PascalCase"],
       },
       {
@@ -274,13 +270,6 @@ module.exports = {
       {
         selector: "memberLike",
         format: ["camelCase", "PascalCase"],
-      },
-      // Private members are prefixed with underscore
-      {
-        selector: "memberLike",
-        modifiers: ["private"],
-        format: ["camelCase"],
-        leadingUnderscore: "require",
       },
       {
         selector: "enumMember",

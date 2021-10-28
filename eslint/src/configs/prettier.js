@@ -4,7 +4,6 @@
  */
 module.exports = {
   plugins: ["prettier"],
-  extends: ["plugin:prettier/recommended"],
   rules: {
     "prettier/prettier": [
       "warn",
@@ -14,6 +13,7 @@ module.exports = {
         tabWidth: 2,
         endOfLine: "lf",
         trailingComma: "all",
+        singleQuote: false,
       },
     ],
   },
