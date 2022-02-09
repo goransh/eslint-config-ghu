@@ -6,7 +6,7 @@ A very opinionated, batteries-included eslint config. Work in progress.
 
 This will install the config and all peer dependencies
 ```shell
-npm i -D eslint-config-ghu eslint eslint-config-prettier eslint-plugin-eslint-comments eslint-plugin-import eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
+npm i -D eslint-config-ghu eslint eslint-plugin-eslint-comments eslint-plugin-import eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
 ```
 
 Create a `.eslintrc` file at the project root (same level as `package.json`) with this configuration:
@@ -42,3 +42,18 @@ eslint src --fix
 * and much more
 
 Will document this better in the future.
+
+
+```ts
+const list: string[] = [];
+
+const lengths = list.map(element => element.length);
+
+const lengths = [];
+for (let element of list) {
+  lengths.push(element.length);
+}
+
+
+
+```

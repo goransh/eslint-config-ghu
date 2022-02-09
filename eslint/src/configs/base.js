@@ -119,13 +119,8 @@ module.exports = {
      * Most of eslint's rules in this category are handled by prettier
      */
 
-    "capitalized-comments": [
-      "warn",
-      "always",
-      {
-        ignorePattern: "language=",
-      },
-    ],
+    // Annoying when commenting out code temporarily, ends up adding a lot of work to fix the comments
+    "capitalized-comments": ["off"],
     // Prefer "function foo(){..." over "const foo = function{..."
     "func-style": ["warn", "declaration", { allowArrowFunctions: true }],
     "lines-between-class-members": ["warn", "always", { exceptAfterSingleLine: true }],
@@ -256,41 +251,8 @@ module.exports = {
     "init-declarations": "off",
     "@typescript-eslint/init-declarations": ["warn", "always"],
     "@typescript-eslint/method-signature-style": ["warn"],
-    "@typescript-eslint/naming-convention": [
-      "warn",
-      // Use camel and pascal case by default
-      {
-        selector: "default",
-        format: ["camelCase", "PascalCase"],
-      },
-      {
-        selector: "typeLike",
-        format: ["PascalCase"],
-      },
-      {
-        selector: "memberLike",
-        format: ["camelCase", "PascalCase"],
-      },
-      {
-        selector: "enumMember",
-        format: ["PascalCase"],
-      },
-      // Type parameters are prefixed with T: T, TResult, TError
-      {
-        selector: "typeParameter",
-        format: ["PascalCase"],
-        prefix: ["T"],
-      },
-      // Interfaces are NOT prefixed with I
-      {
-        selector: "interface",
-        format: ["PascalCase"],
-        custom: {
-          regex: "^I[A-Z]",
-          match: false,
-        },
-      },
-    ],
+    // Too many edge cases, ends just up being annoying
+    "@typescript-eslint/naming-convention": ["off"],
 
     // Confusing: a! === b => b === a!
     "@typescript-eslint/no-confusing-non-null-assertion": "warn",
@@ -353,7 +315,8 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": "warn",
     "@typescript-eslint/no-namespace": "warn",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
-    "@typescript-eslint/no-non-null-assertion": "warn",
+    // Can be a useful feature to use sometimes, where it is clear from the code that the value cannot be null/undefined, but the interpreter is unable to infer this
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-parameter-properties": "off",
     "no-redeclare": "off",
     "@typescript-eslint/no-redeclare": ["warn"],
