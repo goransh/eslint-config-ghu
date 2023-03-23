@@ -1,7 +1,5 @@
 # Clean Code
 
-Work in progress. 
-
 Goal: 
 
 * Document coding best practices that I follow (how and why)
