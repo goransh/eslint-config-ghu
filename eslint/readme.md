@@ -14,7 +14,7 @@ Create a `.eslintrc` file at the project root (same level as `package.json`) wit
 ```json
 {
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": true
   },
   "extends": [
     "ghu"
@@ -34,26 +34,27 @@ Or with autofix (not recommended if you just added this to an older project);
 eslint src --fix
 ```
 
-# Includes plugins and configuration for
+## Includes plugins and configuration for
 
 * eslint built in rules
 * typescript plugin
 * prettier
-* and much more
-
-Will document this better in the future.
-
-
-```ts
-const list: string[] = [];
-
-const lengths = list.map(element => element.length);
-
-const lengths = [];
-for (let element of list) {
-  lengths.push(element.length);
-}
+* imports
+* comments
 
 
+## **Important**: Warnings and errors
 
-```
+Many eslint other configurations will configure most rules as "errors", even if they are only stylistic or minor issues. This is, in my opinion, a bad practice and adds a lot of unnecessary noise to the developer experience. This is why the configurations in this package are mostly configured as "warn". **This does not mean they should be ignored.** The idea is that an error is something you must fix immediately whereas warnings are minor issues that are fixed automatically or must be fixed before the code is merged. 
+
+* Errors: 
+  * Code does not compile
+  * Code that will always crash at runtime, such as reassigning a `const` variable
+  * Uses unsafe/deprecated features
+  * Code that does not make sense or is obviously incorrect such as properties defined multiple times or `return` statements in constructors. Think of it as "code that would not compile in most C-like languages".
+* Warnings:
+  * Stylistic errors, such as prettier. Most of these are fixed automatically (I recommend configuring your IDE to run eslint on save).
+  * Minor issues that do compile, but may be considered code smells or likely unintended behavior. Examples include: `if (true)`, `debugger` statements and `await` in a `for`-loop. 
+
+Make it a practice in your projects to never have any eslint errors or warnings. Configure your CI/CD pipeline to disallow any non-ignored eslint errors or warnings in merged code. This makes it so that every error and warning is either taken care of by the developer or explicitly ignored with a description as to why it was ignored. 
+

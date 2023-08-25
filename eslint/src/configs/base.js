@@ -1,16 +1,13 @@
 /* eslint-disable max-lines -- Easiest way to make the rule precedence work, may split up in the future */
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 2023,
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-  ],
+  extends: ["eslint:recommended"], // TODO remove. Everything is configured explicitly now.
   rules: {
     /*
      * Eslint rules https://eslint.org/docs/rules
@@ -22,56 +19,190 @@ module.exports = {
      * sort-imports replace with autofixer https://github.com/eslint/eslint/issues/11542
      */
 
-    /*
-     * Category: Possible Errors
+    /**
+     * Category: Possible problems https://eslint.org/docs/latest/rules/#possible-problems
      */
 
-    // Disallow await inside of for loops
+    // Enforce return statements in callbacks of array methods
+    "array-callback-return": "warn",
+    // Require super() calls in constructors
+    "constructor-super": "error",
+    // Enforce "for" loop update clause moving the counter in the right direction
+    "for-direction": "warn",
+    // Enforce return statements in getters
+    "getter-return": "error",
+    // Disallow using an async function as a Promise executor
+    "no-async-promise-executor": "warn",
+    // Disallow await inside for loops
     "no-await-in-loop": "warn",
+    // Disallow reassigning class members
+    "no-class-assign": "error",
+    // Disallow comparing against -0
+    "no-compare-neg-zero": "warn",
+    // Disallow reassigning const variables
+    "no-const-assign": "error",
+    // Disallow expressions where the operation doesn't affect the value
+    "no-constant-binary-expression": "warn",
     // Disallow constant expressions in conditions, i.e. if (true)
     "no-constant-condition": "warn",
+    // Disallow returning value from constructor
+    "no-constructor-return": "error",
+    // Disallow control characters in regular expressions
+    "no-control-regex": "warn",
     // Disallow the use of debugger
     "no-debugger": "warn",
-    // Disallow empty block statements
-    "no-empty": "warn",
-    "no-extra-boolean-cast": ["warn", { enforceForLogicalOperands: true }],
+    // Disallow duplicate arguments in function definitions
+    "no-dupe-args": "error",
+    // Disallow duplicate conditions in if-else-if chains
+    "no-dupe-else-if": "warn",
+    // Disallow duplicate keys in object literals
+    "no-dupe-keys": "error",
+    // Disallow duplicate case labels
+    "no-duplicate-case": "warn",
+    // Disallow duplicate module imports
+    "no-duplicate-imports": "error",
+    // Disallow empty character classes in regular expressions
+    "no-empty-character-class": "warn",
+    // Disallow empty destructuring patterns
+    "no-empty-pattern": "warn",
+    // Disallow reassigning exceptions in catch clauses
+    "no-ex-assign": "error",
+    // Disallow fallthrough of case statements
+    "no-fallthrough": "error",
+    // Disallow reassigning function declarations
+    "no-func-assign": "error",
+    // Disallow assigning to imported bindings
+    "no-import-assign": "error",
+    // Disallow variable or function declarations in nested blocks
+    "no-inner-declarations": "warn",
+    // Disallow invalid regular expression strings in RegExp constructors
+    "no-invalid-regexp": "error",
+    // Disallow irregular whitespace
+    "no-irregular-whitespace": "warn",
+    // Disallow characters which are made with multiple code points in character class syntax
+    "no-misleading-character-class": "warn",
+    // Disallow new operators with global non-constructor functions
+    "no-new-native-nonconstructor": "error",
+    // Disallow new operators with the Symbol object
+    "no-new-symbol": "error",
+    // Disallow calling global object properties as functions
+    "no-obj-calls": "error",
     // Disallow returning values from Promise executor functions
     "no-promise-executor-return": "warn",
+    /*
+     * Disallow calling some Object.prototype methods directly on objects
+     * Prefer Object.hasOwn
+     */
+    "no-prototype-builtins": "error",
+    // Disallow assignments where both sides are exactly the same
+    "no-self-assign": "warn",
+    // Disallow comparisons where both sides are exactly the same
+    "no-self-compare": "warn",
+    // Disallow returning values from setters
+    "no-setter-return": "error",
+    // Disallow sparse arrays: [1,,2] or [,]
+    "no-sparse-arrays": "warn",
     // Disallow template literal placeholder syntax in regular strings - bad: "${someValue}", good: `${someValue}`
     "no-template-curly-in-string": "warn",
+    // Disallow this/super before calling super() in constructors
+    "no-this-before-super": "warn",
+    // Disallow the use of undeclared variables unless mentioned in /*global ...*/ comments
+    "no-undef": "error",
+    // Disallow confusing multiline expressions
+    "no-unexpected-multiline": "warn",
+    // Disallow unmodified loop conditions
+    "no-unmodified-loop-condition": "warn",
+    // Disallow unreachable code after return, throw, continue, and break statements
+    "no-unreachable": "warn",
     // Disallow loops with a body that allows only one iteration
     "no-unreachable-loop": "warn",
+    // Disallow control flow statements in finally blocks
+    "no-unsafe-finally": "warn",
+    // Disallow negating the left operand of relational operators
+    "no-unsafe-negation": ["warn", { enforceForOrderingRelations: true }],
     // Disallow use of optional chaining in contexts where the undefined value is not allowed: (obj?.foo)() => (obj?.foo)?.()
     "no-unsafe-optional-chaining": ["error", { disallowArithmeticOperators: true }],
+    // Disallow unused private class members
+    "no-unused-private-class-members": "warn",
+    // Disallow unused variables
+    "no-unused-vars": [
+      "warn",
+      { vars: "all", args: "after-used", ignoreRestSiblings: false, caughtErrors: "all" },
+    ],
+    // Disallow the use of variables before they are defined
+    "no-use-before-define": [
+      "warn",
+      {
+        functions: false,
+        classes: true,
+        variables: true,
+        allowNamedExports: false,
+      },
+    ],
     // Disallow useless backreferences in regular expressions
     "no-useless-backreference": "warn",
     // Disallow assignments that can lead to race conditions due to usage of await or yield
     "require-atomic-updates": "warn",
+    // Require calls to isNaN() when checking for NaN
+    "use-isnan": ["error", { enforceForSwitchCase: true, enforceForIndexOf: true }],
+    // Enforce comparing typeof expressions against valid strings
     "valid-typeof": ["error", { requireStringLiterals: true }],
+
+    /**
+     * Category: Suggestions https://eslint.org/docs/latest/rules/#suggestions
+     */
+
+    "accessor-pairs": "warn",
+    // Use braces in arrow function body only when needed () => { return value; } => () => value
+    "arrow-body-style": ["warn", "as-needed"],
+    // Enforce the use of variables within the scope they are defined
+    "block-scoped-var": "off", // 'var' is banned
+    // Enforce camelcase naming convention
+    camelcase: "off", // Consider enabling this if there are not too many edge cases
+
+    /*
+     * Enforce or disallow capitalization of the first letter of a comment
+     * Would like to enable this, but it is annoying when commenting out code temporarily, ends up adding a lot of
+     * work to fix the comments
+     */
+    "capitalized-comments": "off",
+    // Enforce that class methods utilize this
+    "class-methods-use-this": ["warn", { enforceForClassFields: false }],
+    // Enforce a maximum cyclomatic complexity allowed in a program
+    complexity: "off", // Would be nice, but triggers too frequently in perfectly readable React components
+
+    // Require return statements to either always or never specify values
+    "consistent-return": "warn",
+    // Enforce consistent naming when capturing the current execution context
+    "consistent-this": "off", // Not relevant in most modern code
+    // Enforce consistent brace style for all control statements
+    curly: ["warn", "all"],
+    // Require default cases in switch statements
+    "default-case": "off",
+    // Enforce default clauses in switch statements to be last
+    "default-case-last": "warn",
+    // Enforce default parameters to be last
+    "default-param-last": "off", // Handled by typescript-eslint
+    // Enforce dot notation whenever possible
+    "dot-notation": "off", // Handled by typescript-eslint
+    // Require the use of === and !==
+    eqeqeq: ["warn", "always"], // Not categorized as error because it is auto-fixed
+    // Require function names to match the name of the variable or property to which they are assigned
+    "func-name-matching": "warn",
+
+    // TODO continue here
+
+    // Disallow empty block statements
+    "no-empty": "warn",
+    "no-extra-boolean-cast": ["warn", { enforceForLogicalOperands: true }],
 
     /*
      * Category: Best Practices
      */
-
-    // Require return statements to either always or never specify values
-    "consistent-return": "warn",
-    /*
-     * TODO curly rule doesn't allow ignoring unneccessary braces (https://github.com/eslint/eslint/issues/6141)
-     * Can live without for now: prettier removes newline in if (condition) \n statement unless the line is too long
-     * Would like to enable just the "consistent" option
-     */
-    /*
-     * "curly": ["error", "multi", "consistent"],
-     * Enforce default clauses in switch statements to be last
-     */
-    "default-case-last": "warn",
-    eqeqeq: ["warn", "always"],
     "grouped-accessor-pairs": "warn",
     "no-alert": "warn",
     "no-caller": "error",
-    "no-constructor-return": "warn",
     "no-else-return": "warn",
-    "no-empty-pattern": "warn",
     "no-eval": "error",
     // Disallow Extending of Native Objects, i.e. Object.prototype.extra = 55;
     "no-extend-native": "error",
@@ -91,8 +222,6 @@ module.exports = {
     "no-return-await": "warn",
     // Disallow javascript: URLs (works like eval())
     "no-script-url": "error",
-    "no-self-compare": "warn",
-    "no-unmodified-loop-condition": "warn",
     // Disallow unnecessary .call() and .apply()
     "no-useless-call": "warn",
     // Disallow unnecessary catch clauses, i.e. catch(e) { throw e; }
@@ -119,8 +248,6 @@ module.exports = {
      * Most of eslint's rules in this category are handled by prettier
      */
 
-    // Annoying when commenting out code temporarily, ends up adding a lot of work to fix the comments
-    "capitalized-comments": ["off"],
     // Prefer "function foo(){..." over "const foo = function{..."
     "func-style": ["warn", "declaration", { allowArrowFunctions: true }],
     "lines-between-class-members": ["warn", "always", { exceptAfterSingleLine: true }],
@@ -179,8 +306,6 @@ module.exports = {
     /*
      * Category: ECMAScript 6
      */
-    // Use braces in arrow function body only when needed () => { return value; } => () => value
-    "arrow-body-style": ["warn", "as-needed"],
     "no-useless-computed-key": "warn",
     "no-useless-rename": "warn",
     "no-var": "error",
@@ -262,8 +387,6 @@ module.exports = {
     "no-dupe-class-members": "off",
     "@typescript-eslint/no-dupe-class-members": ["error"],
 
-    "no-duplicate-imports": "off",
-    "@typescript-eslint/no-duplicate-imports": ["warn"],
     // Consider turning this on? Can be annoying in some cases
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": "off",
@@ -285,8 +408,6 @@ module.exports = {
     "@typescript-eslint/no-extraneous-class": "warn",
     // Requires Promise-like values to be handled appropriately
     "@typescript-eslint/no-floating-promises": "warn",
-    // Disallow usage of the implicit any type in catch clauses, use unknown instead
-    "@typescript-eslint/no-implicit-any-catch": "warn",
     // Disallows explicit type declarations for variables initialized to a number, string, or boolean
     "@typescript-eslint/no-inferrable-types": [
       "warn",
@@ -302,7 +423,7 @@ module.exports = {
     "no-loop-func": "off",
     "@typescript-eslint/no-loop-func": ["warn"],
     // Disallow number literals that lose precision
-    "no-loss-of-precision": "warn",
+    "no-loss-of-precision": "off",
     "@typescript-eslint/no-loss-of-precision": ["warn"],
     /*
      * Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
