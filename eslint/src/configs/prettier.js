@@ -14,6 +14,7 @@ module.exports = {
         endOfLine: "lf",
         trailingComma: "all",
         singleQuote: false,
+        quoteProps: "preserve", // Handled by the "quote-props" eslint rule
       },
     ],
   },

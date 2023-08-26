@@ -1,4 +1,3 @@
-/* eslint-disable max-lines -- Easiest way to make the rule precedence work, may split up in the future */
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   parser: "@typescript-eslint/parser",
@@ -158,7 +157,7 @@ module.exports = {
     // Enforce the use of variables within the scope they are defined
     "block-scoped-var": "off", // 'var' is banned
     // Enforce camelcase naming convention
-    camelcase: "off", // Consider enabling this if there are not too many edge cases
+    "camelcase": "off", // Consider enabling this if there are not too many edge cases
 
     /*
      * Enforce or disallow capitalization of the first letter of a comment
@@ -169,14 +168,14 @@ module.exports = {
     // Enforce that class methods utilize this
     "class-methods-use-this": ["warn", { enforceForClassFields: false }],
     // Enforce a maximum cyclomatic complexity allowed in a program
-    complexity: "off", // Would be nice, but triggers too frequently in perfectly readable React components
+    "complexity": "off", // Would be nice, but triggers too frequently in perfectly readable React components
 
     // Require return statements to either always or never specify values
     "consistent-return": "warn",
     // Enforce consistent naming when capturing the current execution context
     "consistent-this": "off", // Not relevant in most modern code
     // Enforce consistent brace style for all control statements
-    curly: ["warn", "all"],
+    "curly": ["warn", "all"],
     // Require default cases in switch statements
     "default-case": "off",
     // Enforce default clauses in switch statements to be last
@@ -186,62 +185,294 @@ module.exports = {
     // Enforce dot notation whenever possible
     "dot-notation": "off", // Handled by typescript-eslint
     // Require the use of === and !==
-    eqeqeq: ["warn", "always"], // Not categorized as error because it is auto-fixed
+    "eqeqeq": ["warn", "always"],
     // Require function names to match the name of the variable or property to which they are assigned
     "func-name-matching": "warn",
-
-    // TODO continue here
-
+    // Require or disallow named function expressions
+    "func-names": "off",
+    // Require grouped accessor pairs in object literals and classes
+    "grouped-accessor-pairs": "warn",
+    // Require for-in loops to include an if statement
+    "guard-for-in": "off", // Turned off since no-extend-native is enabled
+    // Disallow specified identifiers
+    "id-denylist": "off", // Difficult to make this not be annoying and hit too many edge cases
+    // Require identifiers to match a specified regular expression
+    "id-match": "off",
+    // Require or disallow initialization in variable declarations
+    "init-declarations": "off", // Handled by typescript-eslint
+    // Require or disallow logical assignment operator shorthand
+    "logical-assignment-operators": "off", // Leave this for the dev to choose
+    // Enforce a maximum number of classes per file
+    "max-classes-per-file": "off", // Very limiting, can be useful to allow in a few edge cases
+    // Enforce a maximum depth that blocks can be nested
+    "max-depth": ["warn", 3],
+    // Enforce a maximum number of lines per file
+    "max-lines": [
+      "warn",
+      {
+        max: 500, // Would like this to be lower, but triggers many edge cases and becomes annoying. Still, try to keep max lines in files at 200.
+        skipBlankLines: true,
+        skipComments: true,
+      },
+    ],
+    // Enforce a maximum number of lines of code in a function
+    /*
+     * Doesn't know how to ignore components in JSX. Can use override, but would like to configure util functions (that
+     * can also appear in .tsx files) and components separately.
+     */
+    "max-lines-per-function": "off",
+    // Enforce a maximum depth that callbacks can be nested
+    "max-nested-callbacks": ["warn", { max: 4 }],
+    // Enforce a maximum number of parameters in function definitions
+    "max-params": ["warn", { max: 6 }],
+    // Enforce a maximum number of statements allowed in function blocks
+    "max-statements": ["warn", { max: 16 }], // Trying this out. More reliable compared to max-lines etc. Consider reducing the max number.
+    /*
+     * Disallows consecutive line comments in favor of block comments.
+     * Additionally, requires block comments to have an aligned * character before each line.
+     */
+    "multiline-comment-style": ["warn", "starred-block"],
+    // Require constructor names to begin with a capital letter
+    "new-cap": "warn",
+    // Disallow the use of alert, confirm, and prompt
+    "no-alert": "warn",
+    // Disallow Array constructors
+    "no-array-constructor": "warn",
+    // Disallow bitwise operators
+    "no-bitwise": "off", // Bitwise operators are useful in some scenarios
+    // Disallow the use of arguments.caller or arguments.callee
+    "no-caller": "error", // Is also already disallowed in strict mode afaik
+    // Disallow lexical declarations in case clauses
+    "no-case-declarations": "warn",
+    // Disallow arrow functions where they could be confused with comparisons
+    "no-confusing-arrow": ["warn", { allowParens: true, onlyOneSimpleParam: true }],
+    // Disallow the use of console
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+    // Disallow deleting variables
+    "no-delete-var": "error",
+    // Disallow equal signs explicitly at the beginning of regular expressions
+    "no-div-regex": "warn",
+    // Disallow else blocks after return statements in if statements
+    "no-else-return": "warn",
     // Disallow empty block statements
     "no-empty": "warn",
-    "no-extra-boolean-cast": ["warn", { enforceForLogicalOperands: true }],
-
-    /*
-     * Category: Best Practices
-     */
-    "grouped-accessor-pairs": "warn",
-    "no-alert": "warn",
-    "no-caller": "error",
-    "no-else-return": "warn",
+    // Disallow empty functions
+    "no-empty-function": "off", // Handled by typescript-eslint
+    // Disallow empty static blocks
+    "no-empty-static-block": "warn",
+    // Disallow null comparisons without type-checking operators
+    "no-eq-null": "off", // Redundant with eqeqeq
+    // Disallow the use of eval()
     "no-eval": "error",
-    // Disallow Extending of Native Objects, i.e. Object.prototype.extra = 55;
+    // Disallow extending of Native Objects, i.e. Object.prototype.extra = 55;
     "no-extend-native": "error",
     // Disallow unnecessary function binding
     "no-extra-bind": "warn",
-    // Disallow Unnecessary Labels
+    // Disallow unnecessary boolean casts
+    "no-extra-boolean-cast": ["warn", { enforceForLogicalOperands: true }],
+    // Disallow unnecessary Labels
     "no-extra-label": "warn",
+    // Disallow unnecessary semicolons
+    "no-extra-semi": "warn",
+    // Disallow leading or trailing decimal points in numeric literals
+    "no-floating-decimal": "off", // Handled by prettier
+    // Disallow assignments to native objects or read-only global variables
+    "no-global-assign": "error",
+    // Disallow shorthand type conversions
+    "no-implicit-coercion": [
+      "warn",
+      {
+        boolean: false,
+      },
+    ],
+    // Disallow declarations in the global scope
+    "no-implicit-globals": "warn",
     // Disallow implied eval(), i.e. setTimeout("alert('Hi!');", 100);
     "no-implied-eval": "error",
-    "no-new-wrappers": "warn",
+    // Disallow inline comments after code
+    "no-inline-comments": "off", // Leave this to the developer
+    // Disallow use of this in contexts where the value of this is undefined
+    "no-invalid-this": "off", // Handled by typescript-eslint
+    // Disallow the use of the __iterator__ property
+    "no-iterator": "error",
+    // Disallow labels that are variable names
+    "no-label-var": "error",
+    // Disallow labeled statements
+    "no-labels": "off",
+    // Disallow unnecessary nested blocks
+    "no-lone-blocks": "off",
+    /*
+     * Disallow if statements as the only statement in else blocks
+     * If (a) {...} else { if (b) {...} } => if (a) {...} else if (b) {...}
+     */
+    "no-lonely-if": "warn",
+    // Disallow defining functions in loops
+    "no-loop-func": "off", // Handled by typescript-eslint
+    /*
+     * Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
+     * Too difficult to make it not be annoying, there are too many edge cases we'd like to ignore
+     */
+    "no-magic-numbers": "off",
+    // Disallow mixed binary operators
+    "no-mixed-operators": "off", // Conflicts with prettier
+    // Disallows: const foo = bar = 0
+    "no-multi-assign": "warn",
+    // Disallow multiline strings (using \)
+    "no-multi-str": "warn",
+    // !a ? c : b => a ? b : c
+    "no-negated-condition": "warn",
+    // Disallow nested ternary expressions
+    "no-nested-ternary": "off", // Off, used often in react. Formatting with prettier makes it decently readable.
+    // Disallow new operators outside of assignments or comparisons
+    "no-new": "warn",
+    // Disallow new operators with the Function object
+    "no-new-func": "error",
+    // Disallow Object constructors, new Object() => {}
+    "no-new-object": "warn",
+    // Disallow \8 and \9 escape sequences in string literals
     "no-nonoctal-decimal-escape": "error",
+    // Disallow octal literals
+    "no-octal": "error",
+    // Disallow octal escape sequences in string literals
     "no-octal-escape": "error",
-    "no-param-reassign": "warn",
+    // Disallow reassigning function parameters
+    "no-param-reassign": ["warn", { props: false }], // Would like to turn props on, but triggers too many edge cases
+    // Disallow the unary operators ++ and --
+    "no-plusplus": "off", // No risk when semicolons are enforced
+    // Disallow the use of the __proto__ property
     "no-proto": "error",
+    // Disallow variable redeclaration
+    "no-redeclare": "off", // Handled by typescript-eslint
+    // Disallow multiple spaces in regular expressions
+    "no-regex-spaces": "warn",
+    // Disallow specified names in exports
+    "no-restricted-exports": "off",
+    // Disallow specific global variables
+    "no-restricted-globals": ["error", "event"],
+    // Disallow specified modules when loaded by import
+    "no-restricted-imports": "off", // Environment specific
+    // Disallow certain properties on certain objects
+    "no-restricted-properties": "off",
+    // Disallow specified syntax
+    "no-restricted-syntax": "off", // Consider configuring this if there are any syntax that should be restricted and does not have its own eslint rule
+    // Disallow assignment operators in return statements
     "no-return-assign": "warn",
-    // Disallows unnecessary return await (small performance increase) - see https://jakearchibald.com/2017/await-vs-return-vs-return-await/
-    "no-return-await": "warn",
     // Disallow javascript: URLs (works like eval())
     "no-script-url": "error",
+    // Disallow comma operators
+    "no-sequences": ["warn", { allowInParentheses: false }],
+    // Consider turning this on in the future, see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md
+    "no-shadow": "off", // TODO enable for ts
+    // Disallow identifiers from shadowing restricted names
+    "no-shadow-restricted-names": "error",
+    // Disallow ternary operators
+    "no-ternary": "off",
+    // Disallow throwing literals as exceptions
+    "no-throw-literal": "off", // Handled by typescript-eslint
+    // Disallow initializing variables to undefined
+    "no-undef-init": "off", // Prefer explicit, also syntax is not allowed by other rules
+    // Disallow the use of undefined as an identifier
+    "no-undefined": "off",
+    // Disallow dangling underscores in identifiers
+    "no-underscore-dangle": "off", // Could enable this if backing fields in classes are excluded
+    // Disallow ternary operators when simpler alternatives exist
+    "no-unneeded-ternary": "warn",
+    // Disallow unused expressions
+    "no-unused-expressions": "off", // Handled by typescript-eslint
+    // Disallow unused labels
+    "no-unused-labels": "warn",
     // Disallow unnecessary .call() and .apply()
     "no-useless-call": "warn",
     // Disallow unnecessary catch clauses, i.e. catch(e) { throw e; }
     "no-useless-catch": "warn",
+    // Disallow unnecessary computed property keys in objects and classes {["a"]: "b"} => {"a": "b"}
+    "no-useless-computed-key": "warn",
     // Disallow unnecessary concatenation of strings, i.e. "a" + "b" => "ab"
     "no-useless-concat": "warn",
+    // Disallow unnecessary constructors
+    "no-useless-constructor": "off", // Handled by typescript-eslint
+    // Disallow unnecessary escape characters
+    "no-useless-escape": "warn",
+    // Disallow renaming import, export, and destructured assignments to the same name
+    "no-useless-rename": "warn",
+    // Disallow redundant return statements
     "no-useless-return": "warn",
+    // Require let or const instead of var
+    "no-var": "error",
+    // Disallow void operators
+    "no-void": ["error", { allowAsStatement: true }],
+    // Disallow specified warning terms in comments
+    "no-warning-comments": "off", // Leave this to the developer
     // Disallow with statements ( with(something) {} ), use descructuring instead
     "no-with": "error",
+    // Require or disallow method and property shorthand syntax for object literals
+    "object-shorthand": ["warn", "always"],
+    // Enforce variables to be declared either together or separately in functions
+    "one-var": ["warn", "never"],
+    // Require or disallow newlines around variable declarations
+    "one-var-declaration-per-line": "off", // Do not use multi-declarations
+    // Require or disallow assignment operator shorthand where possible
+    "operator-assignment": "off", // Leave this to the developer
+    // Prefer arrow functions over function expressions in callbacks handle(function (event) { ... }) => handle((event) => {...})
+    "prefer-arrow-callback": "warn",
+    // Require const declarations for variables that are never reassigned after declared
+    "prefer-const": "warn",
+    // Require destructuring from arrays and/or objects
+    "prefer-destructuring": "off", // Leave this to the developer
+    // Disallow the use of Math.pow in favor of the ** operator
+    "prefer-exponentiation-operator": "warn",
+    // Enforce using named capture group in regular expression
+    "prefer-named-capture-group": "off", // Leave this to the developer
+    // Disallow parseInt() and Number.parseInt() in favor of binary, octal, and hexadecimal literals
+    "prefer-numeric-literals": "warn",
+    // Disallow use of Object.prototype.hasOwnProperty.call() and prefer use of Object.hasOwn()
+    "prefer-object-has-own": "warn",
+    // Prefer use of an object spread over Object.assign
+    "prefer-object-spread": "warn",
     // Require using Error objects as Promise rejection reasons
     "prefer-promise-reject-errors": "warn",
-    "prefer-regex-literals": "warn",
+    // Disallow use of the RegExp constructor in favor of regular expression literals
+    "prefer-regex-literals": ["warn", { disallowRedundantWrapping: true }],
+    // Suggest using the rest parameters instead of `arguments`
+    "prefer-rest-params": "error",
+    // Suggest using spread syntax instead of .apply()
+    "prefer-spread": "warn",
+    // Suggest using template literals instead of string concatenation
+    "prefer-template": "warn",
+    // Require quotes around object literal property names
+    "quote-props": ["warn", "consistent-as-needed"],
+    "radix": ["warn", "as-needed"],
+    // Disallow async functions which have no await expression
+    "require-await": "off", // Handled by typescript-eslint
+    // Enforce the use of u or v flag on RegExp
+    "require-unicode-regexp": "warn",
+    // Require generator functions to contain yield
+    "require-yield": "warn",
+    // Enforce sorted import declarations within modules
+    "sort-imports": "off", // The eslint-imports plugin handles import sorting
+    // Require object keys to be sorted
+    "sort-keys": "off", // Leave this to the developer. Alphabetic properties are actually less readable in many cases IMO.
+    // Require variables within the same declaration block to be sorted
+    "sort-vars": "off", // Leave this to the developer. Do not use multi variable declarations.
+    // Enforce consistent spacing after the // or /* in a comment
+    "spaced-comment": ["warn", "always"],
+    // Require or disallow strict mode directives
+    "strict": ["warn", "never"], // This config is designed for ES module based projects where "use strict" is enabled implicitly.
+    // Require symbol descriptions
+    "symbol-description": "warn",
+    // Require var declarations be placed at the top of their containing scope
+    "vars-on-top": "off", // `var` is banned
     // Disallow Yoda conditions ("red" === color => color === "red")
-    yoda: ["warn", "never", { exceptRange: true }],
-    // Disallow labels that are variable names
-    "no-label-var": "error",
-    // Disallow specific global variables
-    "no-restricted-globals": ["error", "event"],
-    // Consider turning this on in the future, see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md
-    "no-shadow": "off",
+    "yoda": ["warn", "never", { exceptRange: true }],
+
+    // TODO continue here
+
+    /*
+     * Category: Best Practices
+     */
+    "no-new-wrappers": "warn",
+    // Disallows unnecessary return await (small performance increase) - see https://jakearchibald.com/2017/await-vs-return-vs-return-await/
+    "no-return-await": "warn",
 
     /*
      * Category: Stylistic Issues
@@ -251,76 +482,18 @@ module.exports = {
     // Prefer "function foo(){..." over "const foo = function{..."
     "func-style": ["warn", "declaration", { allowArrowFunctions: true }],
     "lines-between-class-members": ["warn", "always", { exceptAfterSingleLine: true }],
-    "max-depth": ["warn", 3],
-    "max-lines": [
-      "warn",
-      {
-        max: 200,
-        skipBlankLines: true,
-        skipComments: true,
-      },
-    ],
-    "max-params": ["warn", { max: 4 }],
-    /*
-     * Doesn't know how to ignore JSX. Can use override, but would like to configure util functions (that can also
-     * appear in .tsx files) and components separately.
-     */
-    "max-lines-per-function": "off",
-    "max-nested-callbacks": ["warn", { max: 4 }],
     "max-statements-per-line": [
       "warn",
       {
         max: 2,
       },
     ],
-
-    /*
-     * Disallows consecutive line comments in favor of block comments.
-     * Additionally, requires block comments to have an aligned * character before each line.
-     */
-    "multiline-comment-style": ["warn", "starred-block"],
-    "new-cap": "warn",
     "new-parens": ["warn", "always"],
-    // If (a) {...} else { if (b) {...} } => if (a) {...} else if (b) {...}
-    "no-lonely-if": "warn",
-    // Disallows: const foo = bar = 0
-    "no-multi-assign": "warn",
-    // !a ? c : b => a ? b : c
-    "no-negated-condition": "warn",
-    // Disallow Object constructors, new Object() => {}
-    "no-new-object": "warn",
     /*
      * Disallow newline of single-line statements if (a) \n statement; (if, else, while, do-while and for)
      * Before disabling this rule, read https://www.imperialviolet.org/2014/02/22/applebug.html
      */
     "nonblock-statement-body-position": "error",
-
-    "one-var": ["warn", "never"],
-
-    "prefer-exponentiation-operator": "warn",
-
-    // Prefer use of an object spread over Object.assign
-    "prefer-object-spread": "warn",
-    "spaced-comment": ["warn", "always"],
-
-    /*
-     * Category: ECMAScript 6
-     */
-    "no-useless-computed-key": "warn",
-    "no-useless-rename": "warn",
-    "no-var": "error",
-    "object-shorthand": ["warn", "always"],
-    // Prefer arrow functions over function expressions in callbacks handle(function (event) { ... }) => handle((event) => {...})
-    "prefer-arrow-callback": "warn",
-    "prefer-const": "warn",
-    // Disallow parseInt() and Number.parseInt() in favor of binary, octal, and hexadecimal literals
-    "prefer-numeric-literals": "warn",
-    // Suggest using the rest parameters instead of arguments
-    "prefer-rest-params": "warn",
-    // Suggest using spread syntax instead of .apply()
-    "prefer-spread": "warn",
-    // Suggest using template literals instead of string concatenation
-    "prefer-template": "warn",
 
     /**
      * Typescript eslint plugin config
@@ -337,7 +510,7 @@ module.exports = {
         "ts-expect-error": "allow-with-description",
         "ts-ignore": true, // Use ts-expect-error instead
         "ts-nocheck": true,
-        minimumDescriptionLength: 3,
+        "minimumDescriptionLength": 3,
       },
     ],
     // Bans specific types from being used (String => string, Function etc.)
@@ -373,7 +546,6 @@ module.exports = {
       },
     ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "init-declarations": "off",
     "@typescript-eslint/init-declarations": ["warn", "always"],
     "@typescript-eslint/method-signature-style": ["warn"],
     // Too many edge cases, ends just up being annoying
@@ -387,9 +559,7 @@ module.exports = {
     "no-dupe-class-members": "off",
     "@typescript-eslint/no-dupe-class-members": ["error"],
 
-    // Consider turning this on? Can be annoying in some cases
-    "no-empty-function": "off",
-    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off", // TODO turn on
     "@typescript-eslint/no-empty-interface": "warn",
 
     /*
@@ -417,10 +587,8 @@ module.exports = {
       },
     ],
     // Disallow this keywords outside of classes or class-like objects
-    "no-invalid-this": "off",
     "@typescript-eslint/no-invalid-this": ["error"],
     // Disallow defining functions in loops
-    "no-loop-func": "off",
     "@typescript-eslint/no-loop-func": ["warn"],
     // Disallow number literals that lose precision
     "no-loss-of-precision": "off",
@@ -429,7 +597,6 @@ module.exports = {
      * Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
      * TODO Too difficult to make it not be annoying, there are too many edge cases we'd like to ignore
      */
-    "no-magic-numbers": "off",
     "@typescript-eslint/no-magic-numbers": "off",
 
     "@typescript-eslint/no-misused-new": "warn",
@@ -439,12 +606,10 @@ module.exports = {
     // Can be a useful feature to use sometimes, where it is clear from the code that the value cannot be null/undefined, but the interpreter is unable to infer this
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-parameter-properties": "off",
-    "no-redeclare": "off",
     "@typescript-eslint/no-redeclare": ["warn"],
     "@typescript-eslint/no-require-imports": "error",
     "@typescript-eslint/no-this-alias": "warn",
     // Restrict what can be thrown as an exception
-    "no-throw-literal": "warn",
     "@typescript-eslint/no-throw-literal": ["warn"],
 
     "@typescript-eslint/no-unnecessary-boolean-literal-compare": ["warn"],
@@ -459,9 +624,7 @@ module.exports = {
     "@typescript-eslint/no-unsafe-member-access": "error",
     "@typescript-eslint/no-unsafe-return": "error",
     // No 1 + 1; or similar unused expressions (not assigned or returned etc.)
-    "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": ["warn", { enforceForJSX: true }],
-    "no-useless-constructor": "off",
     "@typescript-eslint/no-useless-constructor": "warn",
     "@typescript-eslint/non-nullable-type-assertion-style": "warn",
     "@typescript-eslint/prefer-as-const": "warn",
@@ -484,7 +647,6 @@ module.exports = {
     // Requires Array#sort calls to always provide a compareFunction as it can lead to bugs [1,2,10].sort() => [1,10,2]
     "@typescript-eslint/require-array-sort-compare": ["warn", { ignoreStringArrays: true }],
     // Disallow async functions which have no await expression
-    "require-await": "off",
     "@typescript-eslint/require-await": "warn",
     "@typescript-eslint/strict-boolean-expressions": [
       "warn",
