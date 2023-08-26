@@ -1,6 +1,12 @@
 # Eslint Config Ghu
 
-A very opinionated, batteries-included eslint config. Work in progress.
+A very opinionated, batteries-included eslint config.
+
+Please note: 
+
+* This configuration is intended to be used in modern TypeScript projects with support for many of the latest ES features. If you are using this configuration in JavaScript or non-ES module projects, you may have to modify the configuration to allow syntax that would otherwise be banned. 
+* Some rules that would otherwise have been enabled in JavaScript projects have been disabled because the typescript-eslint plugin overrides them. These configurations will likely not work in JavaScript projects.
+* There are no framework or library specific configurations here. Will consider creating separate React and/or Angular specific configurations in the future.
 
 ## Install
 
@@ -25,13 +31,13 @@ Create a `.eslintrc` file at the project root (same level as `package.json`) wit
 Run eslint:
 
 ```shell
-eslint src
+eslint src --max-warnings=0
 ```
 
-Or with autofix (not recommended if you just added this to an older project);
+Or with autofix (this will likely result in many changes if you have just added this configuration to an older project);
 
 ```shell
-eslint src --fix
+eslint src --max-warnings=0 --fix
 ```
 
 ## Includes plugins and configuration for
