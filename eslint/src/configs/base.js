@@ -6,7 +6,6 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
-  extends: ["eslint:recommended"], // TODO remove. Everything is configured explicitly now.
   rules: {
     /**
      * Eslint rules https://eslint.org/docs/rules
@@ -46,6 +45,8 @@ module.exports = {
     "no-debugger": "warn",
     // Disallow duplicate arguments in function definitions
     "no-dupe-args": "error",
+    // Disallow duplicate class members
+    "no-dupe-class-members": "off", // Handled by typescript-eslint
     // Disallow duplicate conditions in if-else-if chains
     "no-dupe-else-if": "warn",
     // Disallow duplicate keys in object literals
@@ -72,6 +73,8 @@ module.exports = {
     "no-invalid-regexp": "error",
     // Disallow irregular whitespace
     "no-irregular-whitespace": "warn",
+    // Disallow literal numbers that lose precision
+    "no-loss-of-precision": "off", // Handled by typescript-eslint
     // Disallow characters which are made with multiple code points in character class syntax
     "no-misleading-character-class": "warn",
     // Disallow new operators with global non-constructor functions
@@ -118,20 +121,9 @@ module.exports = {
     // Disallow unused private class members
     "no-unused-private-class-members": "warn",
     // Disallow unused variables
-    "no-unused-vars": [
-      "warn",
-      { vars: "all", args: "after-used", ignoreRestSiblings: false, caughtErrors: "all" },
-    ],
+    "no-unused-vars": "off", // Handled by typescript-eslint
     // Disallow the use of variables before they are defined
-    "no-use-before-define": [
-      "warn",
-      {
-        functions: false,
-        classes: true,
-        variables: true,
-        allowNamedExports: false,
-      },
-    ],
+    "no-use-before-define": "off", // Handled by typescript-eslint
     // Disallow useless backreferences in regular expressions
     "no-useless-backreference": "warn",
     // Disallow assignments that can lead to race conditions due to usage of await or yield
@@ -160,7 +152,7 @@ module.exports = {
      */
     "capitalized-comments": "off",
     // Enforce that class methods utilize this
-    "class-methods-use-this": ["warn", { enforceForClassFields: false }],
+    "class-methods-use-this": "off", // Handled by typescript-eslint
     // Enforce a maximum cyclomatic complexity allowed in a program
     "complexity": "off", // Would be nice, but triggers too frequently in perfectly readable React components
 
@@ -233,7 +225,7 @@ module.exports = {
     // Disallow the use of alert, confirm, and prompt
     "no-alert": "warn",
     // Disallow Array constructors
-    "no-array-constructor": "warn",
+    "no-array-constructor": "off", // Handled by typescript-eslint
     // Disallow bitwise operators
     "no-bitwise": "off", // Bitwise operators are useful in some scenarios
     // Disallow the use of arguments.caller or arguments.callee
@@ -284,7 +276,7 @@ module.exports = {
     // Disallow declarations in the global scope
     "no-implicit-globals": "warn",
     // Disallow implied eval(), i.e. setTimeout("alert('Hi!');", 100);
-    "no-implied-eval": "error",
+    "no-implied-eval": "off", // Handled by typescript-eslint
     // Disallow inline comments after code
     "no-inline-comments": "off", // Leave this to the developer
     // Disallow use of this in contexts where the value of this is undefined
@@ -308,7 +300,7 @@ module.exports = {
      * Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
      * Too difficult to make it not be annoying, there are too many edge cases we'd like to ignore
      */
-    "no-magic-numbers": "off",
+    "no-magic-numbers": "off", // Handle this with typescript-eslint if this is every enabled
     // Disallow mixed binary operators
     "no-mixed-operators": "off", // Conflicts with prettier
     // Disallows: const foo = bar = 0
@@ -348,7 +340,7 @@ module.exports = {
     // Disallow specific global variables
     "no-restricted-globals": ["error", "event"],
     // Disallow specified modules when loaded by import
-    "no-restricted-imports": "off", // Environment specific
+    "no-restricted-imports": "off", // Environment specific. Configure this with typescript-eslint if this is ever enabled.
     // Disallow certain properties on certain objects
     "no-restricted-properties": "off",
     // Disallow specified syntax
@@ -360,7 +352,7 @@ module.exports = {
     // Disallow comma operators
     "no-sequences": ["warn", { allowInParentheses: false }],
     // Consider turning this on in the future, see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md
-    "no-shadow": "off", // TODO enable for ts
+    "no-shadow": "off", // Handled by typescript-eslint
     // Disallow identifiers from shadowing restricted names
     "no-shadow-restricted-names": "error",
     // Disallow ternary operators
@@ -709,47 +701,78 @@ module.exports = {
      * Category: Extension Rules https://typescript-eslint.io/rules/#extension-rules
      * Rules that override built-in eslint rules with TS support.
      */
-    /*
-     * TODO continue here
-     */
+    "@typescript-eslint/class-methods-use-this": [
+      "warn",
+      {
+        enforceForClassFields: false,
+        ignoreOverrideMethods: true,
+        ignoreClassesThatImplementAnInterface: true,
+      },
+    ],
     // Enforce default parameters to be last
     "@typescript-eslint/default-param-last": "error",
     // Enforce dot notation whenever possible ( a.b over a["b"] )
     "@typescript-eslint/dot-notation": "warn",
+    // Require or disallow initialization in variable declarations.
     "@typescript-eslint/init-declarations": ["warn", "always"],
-
+    // Disallow generic Array constructors
+    "@typescript-eslint/no-array-constructor": "warn",
     // Disallow duplicate class members
-    "no-dupe-class-members": "off",
     "@typescript-eslint/no-dupe-class-members": ["error"],
-
-    "@typescript-eslint/no-empty-function": "off", // TODO turn on
-
+    // Disallow empty functions.
+    "@typescript-eslint/no-empty-function": [
+      "warn",
+      { allow: ["private-constructors", "protected-constructors", "overrideMethods"] },
+    ],
+    // Disallow the use of eval()-like methods
+    "@typescript-eslint/no-implied-eval": "error",
     // Disallow this keywords outside of classes or class-like objects
-    "@typescript-eslint/no-invalid-this": ["error"],
+    "@typescript-eslint/no-invalid-this": "error",
     // Disallow defining functions in loops
-    "@typescript-eslint/no-loop-func": ["warn"],
+    "@typescript-eslint/no-loop-func": "warn",
     // Disallow number literals that lose precision
-    "no-loss-of-precision": "off",
     "@typescript-eslint/no-loss-of-precision": ["warn"],
     /*
      * Disallow magic numbers/constants in the code, i.e. a[300], 40 * 40
-     * TODO Too difficult to make it not be annoying, there are too many edge cases we'd like to ignore
+     * Too difficult to make it not be annoying, there are too many edge cases we'd like to ignore
      */
     "@typescript-eslint/no-magic-numbers": "off",
-
-    "@typescript-eslint/no-redeclare": ["warn"],
+    // Disallow variable redeclaration.
+    "@typescript-eslint/no-redeclare": "warn",
+    // Disallow variable declarations from shadowing variables declared in the outer scope
+    "@typescript-eslint/no-shadow": "warn",
     // Restrict what can be thrown as an exception
-    "@typescript-eslint/no-throw-literal": ["warn"],
-
-    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-throw-literal": "warn",
     // No 1 + 1; or similar unused expressions (not assigned or returned etc.)
     "@typescript-eslint/no-unused-expressions": ["warn", { enforceForJSX: true }],
+    // Disallow unused variables
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { vars: "all", args: "after-used", ignoreRestSiblings: false, caughtErrors: "all" },
+    ],
+    "@typescript-eslint/no-use-before-define": [
+      "warn",
+      {
+        /*
+         * Consider making this rule a bit more strict. However, letting the developer choose declaration ordering can
+         * often result in more readable code IMO as it follows a more natural reading order. Example: An interface for an
+         * API response type is declared at the top of a file and one or more of its properties are of a type that are
+         * defined below it.
+         */
+        functions: false,
+        classes: true,
+        variables: true,
+        allowNamedExports: false,
+        enums: false,
+        typedefs: false,
+        ignoreTypeReferences: true,
+      },
+    ],
+    // Disallow unnecessary constructors
     "@typescript-eslint/no-useless-constructor": "warn",
-
     // Disallow async functions which have no await expression
     "@typescript-eslint/require-await": "warn",
-
-    // TODO remove, replaced by consistent-type-assertions
-    "@typescript-eslint/no-object-literal-type-assertion": "off",
+    // Disallow assigning a value with type any to variables and properties.
+    "@typescript-eslint/no-unsafe-assignment": "warn",
   },
 };
