@@ -5,9 +5,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 'eslint'
     steps:
       - uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
