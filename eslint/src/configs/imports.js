@@ -7,9 +7,9 @@ module.exports = {
     "import/order": [
       "warn",
       {
-        groups: ["builtin", "external", "internal", ["parent", "sibling", "index"], "object"],
+        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"], "object"],
         "newlines-between": "always",
-        alphabetize: {
+        "alphabetize": {
           order: "asc",
           caseInsensitive: false,
         },

@@ -4,7 +4,7 @@ describe("base tests", () => {
   const eslint = new ESLint({
     overrideConfig: {
       parserOptions: {
-        project: "./tsconfig.json",
+        project: true,
         createDefaultProgram: true,
       },
       root: true,
