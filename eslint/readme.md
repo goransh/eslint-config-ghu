@@ -22,11 +22,16 @@ Create a `.eslintrc` file at the project root (same level as `package.json`) wit
   "parserOptions": {
     "project": true
   },
+  "env": {
+    "browser": true // Or whatever environments you are developing for
+  },
   "extends": [
     "ghu"
   ]
 }
 ```
+
+**Note:** Do not extend `eslint:recommended` or any of the `typescript-eslint` configurations when using this configuration. This configuration configures every rule that these configurations use (apart from a few that are conflicting with prettier or other plugins) and much, much more.
 
 Run eslint:
 

@@ -54,7 +54,7 @@ module.exports = {
     // Disallow duplicate case labels
     "no-duplicate-case": "warn",
     // Disallow duplicate module imports
-    "no-duplicate-imports": "error",
+    "no-duplicate-imports": "warn",
     // Disallow empty character classes in regular expressions
     "no-empty-character-class": "warn",
     // Disallow empty destructuring patterns
@@ -220,8 +220,11 @@ module.exports = {
      * Additionally, requires block comments to have an aligned * character before each line.
      */
     "multiline-comment-style": ["warn", "starred-block"],
-    // Require constructor names to begin with a capital letter
-    "new-cap": "warn",
+    /*
+     * Require constructor names to begin with a capital letter
+     * Disabled because: Too many false positives. Some libraries and conventions use uppercase function names.
+     */
+    "new-cap": "off",
     // Disallow the use of alert, confirm, and prompt
     "no-alert": "warn",
     // Disallow Array constructors
@@ -232,8 +235,11 @@ module.exports = {
     "no-caller": "error", // Is also already disallowed in strict mode afaik
     // Disallow lexical declarations in case clauses
     "no-case-declarations": "warn",
-    // Disallow arrow functions where they could be confused with comparisons
-    "no-confusing-arrow": ["warn", { allowParens: true, onlyOneSimpleParam: true }],
+    /*
+     * Disallow arrow functions where they could be confused with comparisons
+     * Disabled because: Does not work well with prettier. Also the syntax (...) => a ? b : c is not confusing IMO.
+     */
+    "no-confusing-arrow": "off",
     // Disallow the use of console
     "no-console": ["warn", { allow: ["warn", "error"] }],
     // Disallow deleting variables
@@ -580,13 +586,18 @@ module.exports = {
       },
     ],
     // Disallow void type outside of generic or return types
-    "@typescript-eslint/no-invalid-void-type": "warn",
+    "@typescript-eslint/no-invalid-void-type": ["warn", { allowInGenericTypeArguments: true }],
     // Disallow the void operator except when used to discard a value
     "@typescript-eslint/no-meaningless-void-operator": "warn",
     // Enforce valid definition of new and constructor
     "@typescript-eslint/no-misused-new": "warn",
     // Disallow Promises in places not designed to handle them.
-    "@typescript-eslint/no-misused-promises": "warn",
+    "@typescript-eslint/no-misused-promises": [
+      "warn",
+      {
+        checksVoidReturn: false,
+      },
+    ],
     // Disallow enums from having both number and string members
     "@typescript-eslint/no-mixed-enums": "warn",
     // Disallow TypeScript namespaces.
@@ -597,16 +608,25 @@ module.exports = {
     "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
     // Can be a useful feature to use sometimes, where it is clear from the code that the value cannot be null/undefined, but the interpreter is unable to infer this
     "@typescript-eslint/no-non-null-assertion": "off",
-    // Disallow members of unions and intersections that do nothing or override type information
-    "@typescript-eslint/no-redundant-type-constituents": "warn",
+    /*
+     * Disallow members of unions and intersections that do nothing or override type information
+     * Disabled because: Type unions between literal types and the `string` type (i.e. "Success" | "Error" | string)  is useful in
+     * many cases to provide type hints in the IDE for common cases. The rule has no configuration to allow this pattern.
+     */
+    "@typescript-eslint/no-redundant-type-constituents": "off",
     // Disallow invocation of require().
     "@typescript-eslint/no-require-imports": "error",
     // Disallow aliasing this
     "@typescript-eslint/no-this-alias": "warn",
     // Disallow unnecessary equality comparisons against boolean literals.
     "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
-    // Prevents conditionals where the type is always truthy or always falsy
-    "@typescript-eslint/no-unnecessary-condition": "warn",
+    /*
+     * Prevents conditionals where the type is always truthy or always falsy
+     * Disabled because: Too many cases where typing info is not good enough for this to be more useful than annoying.
+     * Example: Array indexing without the TS config that makes it return undefined will trigger a warning for this, even
+     * though the code is perfectly legit (values[0]?.prop)
+     */
+    "@typescript-eslint/no-unnecessary-condition": "off",
     // Disallow unnecessary namespace qualifiers.
     "@typescript-eslint/no-unnecessary-qualifier": "warn",
     // Disallow type arguments that are equal to the default.
@@ -748,26 +768,15 @@ module.exports = {
     // Disallow unused variables
     "@typescript-eslint/no-unused-vars": [
       "warn",
-      { vars: "all", args: "after-used", ignoreRestSiblings: false, caughtErrors: "all" },
+      { vars: "all", args: "after-used", ignoreRestSiblings: true, caughtErrors: "all" },
     ],
-    "@typescript-eslint/no-use-before-define": [
-      "warn",
-      {
-        /*
-         * Consider making this rule a bit more strict. However, letting the developer choose declaration ordering can
-         * often result in more readable code IMO as it follows a more natural reading order. Example: An interface for an
-         * API response type is declared at the top of a file and one or more of its properties are of a type that are
-         * defined below it.
-         */
-        functions: false,
-        classes: true,
-        variables: true,
-        allowNamedExports: false,
-        enums: false,
-        typedefs: false,
-        ignoreTypeReferences: true,
-      },
-    ],
+    /*
+     * Letting the developer choose declaration ordering can
+     * often result in more readable code IMO as it follows a more natural reading order. Example: An interface for an
+     * API response type is declared at the top of a file and one or more of its properties are of a type that are
+     * defined below it.
+     */
+    "@typescript-eslint/no-use-before-define": "off",
     // Disallow unnecessary constructors
     "@typescript-eslint/no-useless-constructor": "warn",
     // Disallow async functions which have no await expression

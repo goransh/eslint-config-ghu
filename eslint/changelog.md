@@ -1,9 +1,24 @@
 # Changelog
 
-# 1.0.0-beta.0
-_xx August 2023_
+# 1.0.0-beta.2
+_27 August 2023_
 
-* Updated dependencies to the latest version. Major version bump for `@typescript-eslint/eslint-plugin` and `@typescript-eslint/parser` (5 to 6).
+* Fixed `no-duplicate-imports` config: Is now configured as `warn` instead of `error`.
+* `new-cap` has been disabled since it triggers too many false positives and gets in the way.
+* `no-confusing-arrow` has been disabled. Does not work well with prettier.
+* `@typescript-eslint/no-invalid-void-type` now has the `allowInGenericTypeArguments` option enabled.
+* `@typescript-eslint/no-misused-promises` now accepts Promise returns where void return are expected. This rule allows passing async functions to event handlers in React for instance.
+* `@typescript-eslint/no-redundant-type-constituents` has been disabled. See description in `base.js` config.
+* `@typescript-eslint/no-unnecessary-condition` has been disabled. See description in `base.js` config.
+* `@typescript-eslint/no-use-before-define` has been disabled. See description in `base.js` config.
+
+# 1.0.0-beta.0-1
+_26 August 2023_
+
+* Updated dependencies to the latest version. Major version bumps:
+  * `@typescript-eslint/eslint-plugin` and `@typescript-eslint/parser`: 5.x to 6.x
+  * `eslint-plugin-prettier`: 4.x to 5.x
+  * `prettier`: 2.x to 3.x
 * Removed configurations for deprecated rules.
 * The `base` configuration no longer extends any other configurations such as `eslint:recommended`. Instead, every rule is explicitly configured. This makes the configuration much clearer and also ensures no rules are configured such that they do not follow this configuration's warning/error convention (see readme).
 * Went through every configured rule and updated many of them. See diff for complete changelog. Some significant changes include:
