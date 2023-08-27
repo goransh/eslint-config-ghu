@@ -4,5 +4,8 @@
     "allowJs": true,
     "declaration": false
   },
-  "exclude": ["tests"]
+  "exclude": [
+    "tests",
+    ".eslintrc.js"
+  ]
 }
