@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.0
+_5 May 2024_
+* Version bump.
+
 # 1.0.0-beta.2
 _27 August 2023_
 
