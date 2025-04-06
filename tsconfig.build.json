@@ -1,11 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "declaration": false
+    "allowJs": false,
+    "declaration": true
   },
   "exclude": [
     "tests",
-    ".eslintrc.js"
+    "eslint.config"
   ]
 }

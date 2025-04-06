@@ -3,21 +3,26 @@ import { ESLint } from "eslint";
 describe("base tests", () => {
   const eslint = new ESLint({
     overrideConfig: {
-      parserOptions: {
-        project: true,
-        createDefaultProgram: true,
+
+      // parserOptions: {
+      //   project: true,
+      //   createDefaultProgram: true,
+      // },
+      languageOptions: {
+        parserOptions: {
+          ecmaVersion: "latest",
+        },
+        sourceType: "module",
       },
-      root: true,
-      env: {
-        node: true,
-      },
+      // env: {
+      //   node: true,
+      // },
     },
-    overrideConfigFile: "./src/configs/all.js",
-    useEslintrc: false,
+    overrideConfigFile: "./src/configs/all.ts",
   });
 
   test("fixture should be configured so files can be lint-tested", async () => {
-    const lintFilesResults = await eslint.lintFiles("src/configs/base.js");
+    const lintFilesResults = await eslint.lintFiles("src/configs/base.ts");
     lintFilesResults.forEach(console.log);
   });
 

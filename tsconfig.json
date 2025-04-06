@@ -15,7 +15,7 @@
   "include": [
     "src",
     "tests",
-    ".eslintrc.js"
+    "eslint.config"
   ],
   "exclude": ["node_modules"]
 }
