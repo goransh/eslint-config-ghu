@@ -22,7 +22,7 @@ describe("base tests", () => {
   });
 
   test("fixture should be configured so files can be lint-tested", async () => {
-    const lintFilesResults = await eslint.lintFiles("src/configs/base.ts");
+    const lintFilesResults = await eslint.lintFiles("src/configs/ts.ts");
     lintFilesResults.forEach(console.log);
   });
 

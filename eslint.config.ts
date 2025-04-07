@@ -1,10 +1,10 @@
 import {config} from "typescript-eslint"
-import jestPlugin  from "eslint-plugin-jest"
+// import jestPlugin  from "eslint-plugin-jest"
 import { all } from "./src";
 
 export default config([{
   plugins: {
-    "jest": jestPlugin,
+    // "jest": jestPlugin,
   },
     extends: [...all()],
   // ignorePatterns: ["dist", "**/jest.config.ts", "**/jest-resolver.ts"],
