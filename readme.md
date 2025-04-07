@@ -10,6 +10,8 @@ Please note:
 
 ## Install
 
+**Outdated as of 2.0.0-alpha.0, will be updated for release version.**
+
 This will install the config and all peer dependencies
 ```shell
 npm i -D eslint-config-ghu eslint eslint-plugin-eslint-comments eslint-plugin-import eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser

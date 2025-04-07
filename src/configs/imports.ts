@@ -1,7 +1,6 @@
 /**
  * Configuration for plugin: import https://github.com/benmosher/eslint-plugin-import
  */
-import { Config } from "typescript-eslint";
 import importPlugin from "eslint-plugin-import";
 import type { TSESLint } from "@typescript-eslint/utils";
 

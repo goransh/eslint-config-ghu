@@ -1,5 +1,19 @@
 # Changelog
 
+# 2.0.0-alpha.0
+
+Warning:
+
+* Upcoming versions will most likely come with breaking changes for configuring these rules.
+* Docs are not updated with the new way to configure.
+
+Changes:
+
+* Migrated project to Eslint 9 and flat config.
+* Project now exports as ESM, was CommonJs.
+* Removed/replaced configs for all deprecated rules (detailed descriptions will come for release version).
+* Replaced the eslint-plugin-eslint-comments plugin with @eslint-community/eslint-plugin-eslint-comments.
+
 # 1.0.0
 _5 May 2024_
 * Version bump.

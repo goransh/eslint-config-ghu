@@ -72,7 +72,7 @@ export function js(): TSESLint.FlatConfig.Config[] {
       // Disallow irregular whitespace
       "no-irregular-whitespace": "warn",
       // Disallow literal numbers that lose precision
-      "no-loss-of-precision": "off", // Handled by typescript-eslint
+      "no-loss-of-precision": "warn",
       // Disallow characters which are made with multiple code points in character class syntax
       "no-misleading-character-class": "warn",
       // Disallow new operators with global non-constructor functions
@@ -155,7 +155,7 @@ export function js(): TSESLint.FlatConfig.Config[] {
       "complexity": "off", // Would be nice, but triggers too frequently in perfectly readable React components
 
       // Require return statements to either always or never specify values
-      "consistent-return": "warn",
+      "consistent-return": "off", // Handled by typescript-eslint
       // Enforce consistent naming when capturing the current execution context
       "consistent-this": "off", // Not relevant in most modern code
       // Enforce consistent brace style for all control statements
@@ -212,7 +212,7 @@ export function js(): TSESLint.FlatConfig.Config[] {
       // Enforce a maximum depth that callbacks can be nested
       "max-nested-callbacks": ["warn", { max: 4 }],
       // Enforce a maximum number of parameters in function definitions
-      "max-params": ["warn", { max: 6 }],
+      "max-params": "off",
       // Enforce a maximum number of statements allowed in function blocks
       "max-statements": ["warn", { max: 16 }], // Trying this out. More reliable compared to max-lines etc. Consider reducing the max number.
       /*
@@ -345,7 +345,7 @@ export function js(): TSESLint.FlatConfig.Config[] {
       "no-script-url": "error",
       // Disallow comma operators
       "no-sequences": ["warn", { allowInParentheses: false }],
-      // Consider turning this on in the future, see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md
+      // Disallow variable declarations from shadowing variables declared in the outer scope
       "no-shadow": "off", // Handled by typescript-eslint
       // Disallow identifiers from shadowing restricted names
       "no-shadow-restricted-names": "error",
@@ -412,7 +412,7 @@ export function js(): TSESLint.FlatConfig.Config[] {
       // Prefer use of an object spread over Object.assign
       "prefer-object-spread": "warn",
       // Require using Error objects as Promise rejection reasons
-      "prefer-promise-reject-errors": "warn",
+      "prefer-promise-reject-errors": "off", // Handled by typescript-eslint
       // Disallow use of the RegExp constructor in favor of regular expression literals
       "prefer-regex-literals": ["warn", { disallowRedundantWrapping: true }],
       // Suggest using the rest parameters instead of `arguments`
