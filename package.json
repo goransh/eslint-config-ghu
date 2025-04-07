@@ -25,9 +25,9 @@
   "author": "Gøran Humlestøl",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/goransh/clean-code/issues"
+    "url": "https://github.com/goransh/eslint-config-ghu/issues"
   },
-  "homepage": "https://github.com/goransh/clean-code#readme",
+  "homepage": "https://github.com/goransh/eslint-config-ghu#readme",
   "type": "module",
   "peerDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": ">= 4.* < 5",
