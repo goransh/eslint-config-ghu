@@ -7,10 +7,16 @@ import type { TSESLint } from "@typescript-eslint/utils";
 export function comments(): TSESLint.FlatConfig.Config[] {
   return [
     {
-      plugins: commentsConfigs.recommended.plugins,
+      name: "ghu/comments",
+      files: ["**/*.{js,jsx,jsm,ts,tsx,tsm}"],
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- Untyped import
+      plugins: (commentsConfigs.recommended as TSESLint.FlatConfig.Config).plugins,
       rules: {
         // Require a eslint-enable comment for every eslint-disable comment
-        "@eslint-community/eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
+        "@eslint-community/eslint-comments/disable-enable-pair": [
+          "error",
+          { allowWholeFile: true },
+        ],
         // Disallow a eslint-enable comment for multiple eslint-disable comments
         "@eslint-community/eslint-comments/no-aggregating-enable": "warn",
         // Disallow duplicate eslint-disable comments
@@ -26,9 +32,11 @@ export function comments(): TSESLint.FlatConfig.Config[] {
         // Disallow ESLint directive-comments
         "@eslint-community/eslint-comments/no-use": "off",
         // Require descriptions for eslint disable comments, they have to be on the same line prefixed with --
-        "@eslint-community/eslint-comments/require-description": ["error", { ignore: ["eslint-enable"] }],
-      }
-    }
-
-  ]
+        "@eslint-community/eslint-comments/require-description": [
+          "error",
+          { ignore: ["eslint-enable"] },
+        ],
+      },
+    },
+  ];
 }

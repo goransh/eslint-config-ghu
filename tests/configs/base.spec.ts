@@ -1,9 +1,9 @@
+import { describe, test, expect } from "@jest/globals";
 import { ESLint } from "eslint";
 
 describe("base tests", () => {
   const eslint = new ESLint({
     overrideConfig: {
-
       // parserOptions: {
       //   project: true,
       //   createDefaultProgram: true,

@@ -1,8 +1,15 @@
-import {config} from "typescript-eslint"
+import {config, parser} from "typescript-eslint"
 // import jestPlugin  from "eslint-plugin-jest"
 import { all } from "./src";
 
 export default config([{
+  languageOptions: {
+    parser,
+    parserOptions: {
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
   plugins: {
     // "jest": jestPlugin,
   },
@@ -15,6 +22,6 @@ export default config([{
   // },
   rules: {
     "@typescript-eslint/unbound-method": "off",
-    "jest/unbound-method": "error",
+    // "jest/unbound-method": "error",
   },
 }]);

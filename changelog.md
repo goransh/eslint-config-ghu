@@ -1,5 +1,15 @@
 # Changelog
 
+# 2.0.0-alpha.2
+
+* Fix broken imports and comments configs.
+* Add glob patterns to most configs.
+* Add name to all configs to help with debugging.
+
+# 2.0.0-alpha.1
+
+* Fix `typescript-eslint` peer dependency version.
+
 # 2.0.0-alpha.0
 
 Warning:
